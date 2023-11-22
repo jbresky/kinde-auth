@@ -7,8 +7,13 @@ export async function GET() {
   if (!isAuthenticated()) {
     return new Response("Unauthorized", { status: 401 });
   }
-  const user = await getUser();
-  const data = { message: "Hello User", id: user.id };
 
-  return NextResponse.json({ data });
+  const user = await getUser();
+  if (user) {
+    return NextResponse.json({
+      message: "Hello user",
+      id: user.id
+    });
+  }
+  return
 }
