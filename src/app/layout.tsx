@@ -5,7 +5,6 @@ import {
   LoginLink,
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/server";
-import Link from "next/link";
 
 export const metadata = {
   title: "Kinde Auth",
@@ -23,9 +22,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <header>
-          <nav className="nav container">
-            <h1 className="text-display-3">KindeAuth</h1>
-            <h1 className="text-sm">KindeAuth</h1>
+          <nav className="py-4 px-10 mx-2 2xl:px-32">
             <div>
               {!(await isAuthenticated()) ? (
                 <>
@@ -35,14 +32,14 @@ export default async function RootLayout({
                   <RegisterLink className="btn btn-dark">Sign up</RegisterLink>
                 </>
               ) : (
-                <div className="profile-blob">
+                <div className="flex justify-between items-center w-full font-semibold">
                   {user?.picture ? (
-                    <img
-                      className="avatar"
-                      src={user?.picture}
-                      alt="user profile avatar"
-                      referrerPolicy="no-referrer"
-                    />
+                      <img
+                        className="avatar"
+                        src={user?.picture}
+                        alt="user profile avatar"
+                        referrerPolicy="no-referrer"
+                      />
                   ) : (
                     <div className="avatar">
                       {user?.given_name?.[0]}
@@ -50,11 +47,12 @@ export default async function RootLayout({
                     </div>
                   )}
                   <div>
-                    <p className="text-heading-2">
-                      {user?.given_name} {user?.family_name}
+                    <p className="">
+                      {user?.given_name}
+                      {user?.family_name}
                     </p>
 
-                    <LogoutLink className="text-subtle">Log out</LogoutLink>
+                    <LogoutLink className="">Log out</LogoutLink>
                   </div>
                 </div>
               )}
@@ -62,21 +60,6 @@ export default async function RootLayout({
           </nav>
         </header>
         <main>{children}</main>
-        <footer className="footer">
-          <div className="container">
-            <strong className="text-heading-2">KindeAuth</strong>
-            <p className="footer-tagline text-body-3">
-              Visit our{" "}
-              <Link className="link" href="https://kinde.com/docs">
-                help center
-              </Link>
-            </p>
-
-            <small className="text-subtle">
-              © 2023 KindeAuth, Inc. All rights reserved
-            </small>
-          </div>
-        </footer>
       </body>
     </html>
   );
