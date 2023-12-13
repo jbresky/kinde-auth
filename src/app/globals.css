@@ -61,6 +61,10 @@ a {
   text-decoration: none;
 }
 
+label {
+  font-weight: bold;
+}
+
 .container {
   margin: auto;
 }
