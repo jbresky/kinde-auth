@@ -4,12 +4,19 @@ import { FcHighPriority } from "react-icons/fc";
 import { FcMediumPriority } from "react-icons/fc";
 import { FcLowPriority } from "react-icons/fc";
 
-const Priority = () => {
+const Priority = ({ priority }: { priority: number }) => {
+
     return (
         <div className="flex justify-start align-baseline text-lg">
-            {/* <FcHighPriority />
-            <FcMediumPriority /> */}
-            <FcLowPriority />
+            {priority === 1 && (
+                <FcLowPriority />
+            )}
+            {priority === 2 && (
+                <FcMediumPriority />
+            )}
+            {priority === 3 && (
+                <FcHighPriority />
+            )}
         </div>
     );
 }
