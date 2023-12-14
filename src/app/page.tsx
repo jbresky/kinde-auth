@@ -35,11 +35,11 @@ const Home = async () => {
   ]
 
   return (
-    <div className="container">
+    <div className="px-4">
       {
         tickets && uniqueCategories?.map((uniqueCategory, categoryIndex) => (
           <div key={categoryIndex}>
-            <h2>{uniqueCategory}</h2>
+            <h2 className="text-slate-500 font-semibold">{uniqueCategory}</h2>
             {
               tickets.filter((ticket: any) => ticket.category === uniqueCategory)
               .map((filteredTicket: any, _index: any) => (

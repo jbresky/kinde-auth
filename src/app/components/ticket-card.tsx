@@ -26,7 +26,7 @@ const TicketCard = ({ ticket }: any) => {
     const createdAt = formatTimestamp(ticket.createdAt)
 
     return (
-        <div className="flex flex-col border-2 border-gray-300 rounded-xl hover:shadow-lg transition duration-300 p-4 m-2">
+        <div className="flex flex-col border-2 border-gray-300 rounded-xl hover:shadow-lg transition duration-300 p-4 mt-2">
             <div className="flex mb-3">
                 <Priority priority={ticket.priority}/>
                 <div className="ml-auto">
@@ -34,14 +34,14 @@ const TicketCard = ({ ticket }: any) => {
                 </div>
             </div>
             <Link href={`/TicketPage/{ticket._id}`}>
-                <h4 className="mb-1">{ticket.title}</h4>
+                <h4 className="mb-1 font-semibold">{ticket.title}</h4>
                 <hr className="h-px border-0 bg-gray-300 mb-2 "></hr>
                 <p className="whitespace-pre-wrap">{ticket.description}</p>
 
                 <div className="flex-grow"></div>
                 <div className="flex mt-2">
                     <div className="flex flex-col">
-                        <p className="text-xs  my-1">{createdAt}</p>
+                        <p className="text-xs my-1">{createdAt}</p>
                         <Progress progress={ticket.progress} />
                     </div>
                     <div className="ml-auto  flex items-end">

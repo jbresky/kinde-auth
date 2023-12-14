@@ -23,7 +23,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <header>
-          <nav className="py-4 px-10 mx-2 2xl:px-32">
+          <nav className="p-4 2xl:px-32">
             <div>
               {!(await isAuthenticated()) ? (
                 <div className="flex items-center gap-4">
