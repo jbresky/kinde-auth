@@ -1,5 +1,5 @@
 import TicketCard from "./components/ticket-card";
-const BASE_URL = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://kinde-auth-sand.vercel.app/' : 'http://localhost:3000'
 
 const getTickets = async () => {
   try {
