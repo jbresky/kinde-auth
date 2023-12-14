@@ -1,7 +1,7 @@
 
 import TicketCard from "./components/ticket-card";
 
-export async function getTickets() {
+const getTickets = async () => {
   try {
 
     const res = await fetch("http://localhost:3000/api/Tickets", {
@@ -20,7 +20,7 @@ export async function getTickets() {
   }
 }
 
-export default async function Home() {
+const Home = async () => {
   const data = await getTickets()
 
   if (!data.tickets) {
@@ -56,3 +56,5 @@ export default async function Home() {
     </div>
   );
 }
+
+export default Home
