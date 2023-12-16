@@ -4,7 +4,7 @@ const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://kinde-auth-san
 const getTickets = async () => {
   try {
 
-    const res = await fetch(`${BASE_URL}/api/Tickets`, {
+    const res = await fetch(`https://kinde-auth-sand.vercel.app//api/Tickets`, {
       cache: "no-store"
     })
 
