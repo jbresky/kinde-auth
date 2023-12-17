@@ -1,11 +1,14 @@
 'use client'
 
+import { useRouter } from "next/navigation";
 import { useState, useId } from "react"
 import { FcHighPriority } from "react-icons/fc";
 import { FcMediumPriority } from "react-icons/fc";
 import { FcLowPriority } from "react-icons/fc";
 
-const EditTicketForm = () => {
+const EditTicketForm = ({ ticket }: { ticket: any }) => {
+  const EDITMODE = ticket._id === "new" ? false : true
+  const router = useRouter()
 
   const titleId = useId()
   const descriptionId = useId()
@@ -27,6 +30,15 @@ const EditTicketForm = () => {
     category: "Hardware Problem",
   }
 
+  if (EDITMODE) {
+    initialTicketData["title"] = ticket.title
+    initialTicketData["description"] = ticket.description
+    initialTicketData["priority"] = ticket.priority
+    initialTicketData["progress"] = ticket.progress
+    initialTicketData["status"] = ticket.status
+    initialTicketData["category"] = ticket.category
+  }
+
   const [formData, setFormData] = useState(initialTicketData)
 
   const handleChange = (e: any) => {
@@ -42,15 +54,31 @@ const EditTicketForm = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault()
 
-    const res = await fetch('/api/Tickets', {
-      method: "POST",
-      body: JSON.stringify({ formData }),
-      //@ts-ignore
-      "Content-Type": "application-json",
-    })
-    if (!res.ok) {
-      throw new Error("Failed to create ticket")
+    if (EDITMODE) {
+      const res = await fetch(`/api/Tickets/${ticket._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ formData })
+      })
+
+      if (!res.ok) throw new Error("Failed to update ticket")
+
+    } else {
+
+      const res = await fetch('/api/Tickets', {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        //@ts-ignore
+        "Content-Type": "application-json",
+      })
+
+      if (!res.ok) throw new Error("Failed to create ticket")
     }
+
+    router.refresh()
+    router.push('/')
   }
 
   const categories = [
@@ -65,9 +93,9 @@ const EditTicketForm = () => {
       <form
         onSubmit={handleSubmit}
         method="post"
-        className="m-auto flex flex-col gap-5 w-1/2"
+        className="m-auto flex flex-col gap-5 w-5/6 xl:w-1/2"
       >
-        <h3 className="text-2xl font-semibold">Create New Ticket</h3>
+        <h3 className="text-2xl font-semibold">{EDITMODE ? 'Update ticket' : 'Create New Ticket'}</h3>
         <label htmlFor={titleId}>Title</label>
         <input
           id={titleId}
@@ -159,7 +187,7 @@ const EditTicketForm = () => {
         <button
           className="w-full border-2 px-4 py-2 rounded-lg hover:shadow-md transition duration-200"
         >
-          Create Ticket
+          {EDITMODE ? 'Update Ticket' : 'Create Ticket'}
         </button>
       </form>
     </div>
