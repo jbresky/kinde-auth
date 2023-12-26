@@ -1,11 +1,9 @@
 import TicketCard from "./components/ticket-card";
 // const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://kinde-auth-sand.vercel.app/' : 'http://localhost:3000'
-const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://kinde-auth-git-master-jbresky.vercel.app' : 'http://localhost:3000'
-// const BASE_URL = 'http://localhost:3000'
 
 const getTickets = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/api/Tickets`, {
+    const res = await fetch(`/api/Tickets`, {
       cache: "no-store"
     })
 
@@ -17,7 +15,6 @@ const getTickets = async () => {
 
   } catch (error) {
     console.log("Error loading topics: ", error);
-
   }
 }
 
