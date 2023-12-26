@@ -42,12 +42,9 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
   const [formData, setFormData] = useState(initialTicketData)
 
   const handleChange = (e: any) => {
-    const value = e.target.value
-    const name = e.target.name
 
     setFormData((prevState: any) => ({
-      ...prevState,
-      [name]: value
+      ...prevState, [e.target.name]: e.target.value
     }))
   }
 

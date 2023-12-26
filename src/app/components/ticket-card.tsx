@@ -44,7 +44,7 @@ const TicketCard = ({ ticket }: any) => {
                         <p className="text-xs my-1">{createdAt}</p>
                         <Progress progress={ticket.progress} />
                     </div>
-                    <div className="ml-auto  flex items-end">
+                    <div className="ml-auto flex items-end">
                         <Status status={ticket.status} />
                     </div>
                 </div>
