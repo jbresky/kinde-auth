@@ -1,35 +1,32 @@
-// import EditTicketForm from "@/app/components/edit-ticket-form"
+import EditTicketForm from "@/app/components/edit-ticket-form"
 
-// const getTicketById = async (id: string) => {
-//     try {
-//         const res = await fetch(`http://localhost:3000/api/Tickets/${id}`, {
-//             cache: "no-store"
-//         })
+const getTicketById = async (id: string) => {
+    try {
+        const res = await fetch(`http://localhost:3000/api/Tickets/${id}`)
 
-//         if(!res.ok) throw new Error("Failed to fetch ticket")
+        if(!res.ok) throw new Error("Failed to fetch ticket")
 
-//         return res.json()
+        return res.json()
 
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-// let updateTicketData: any = {}
+let updateTicketData: any = {}
 const TicketPage = async ({ params }: any) => {
-    // const EDITMODE = params.id === "new" ? false : true
+    const EDITMODE = params.id === "new" ? false : true
 
-    // if(EDITMODE) {
-    //     updateTicketData = await getTicketById(params.id)
-    //     updateTicketData = updateTicketData.foundTicket
-    // } else {
-    //     updateTicketData = {
-    //         _id: "new"
-    //     }
-    // }
+    if(EDITMODE) {
+        updateTicketData = await getTicketById(params.id)
+        updateTicketData = updateTicketData.foundTicket
+    } else {
+        updateTicketData = {
+            _id: "new"
+        }
+    }
 
-    // return <EditTicketForm ticket={updateTicketData} />
-    return <div>ticket form page</div>
+    return <EditTicketForm ticket={updateTicketData} />
 }
 
 export default TicketPage;
