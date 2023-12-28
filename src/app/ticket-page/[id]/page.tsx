@@ -1,8 +1,10 @@
 import EditTicketForm from "@/app/components/edit-ticket-form"
 
+const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
+
 const getTicketById = async (id: string) => {
     try {
-        const res = await fetch(`http://localhost:3000/api/Tickets/${id}`)
+        const res = await fetch(`${BASE_URL}/api/Tickets/${id}`)
 
         if(!res.ok) throw new Error("Failed to fetch ticket")
 
