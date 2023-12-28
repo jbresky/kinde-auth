@@ -1,5 +1,5 @@
 import TicketCard from "./components/ticket-card";
-const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app/' : 'http://localhost:3000'
+const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
 
 const getTickets = async () => {
   try {
@@ -33,6 +33,7 @@ const Home = async () => {
   ]
 
   return (
+    // <div className="px-4">Tickets</div>
     <div className="px-4">
       {
         tickets && uniqueCategories?.map((uniqueCategory, categoryIndex) => (
