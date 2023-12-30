@@ -28,9 +28,9 @@ const TicketCard = ({ ticket }: any) => {
     return (
         <div className="flex flex-col border-2 border-gray-300 rounded-xl hover:shadow-lg transition duration-300 p-4 mt-2">
             <div className="flex mb-3">
-                <Priority priority={ticket.priority}/>
-                <div className="ml-auto">
-                    <DeleteBlock />
+                <Priority priority={ticket.priority} />
+                <div className="ml-auto cursor-pointer">
+                    <DeleteBlock id={ticket._id} />
                 </div>
             </div>
             <Link href={`/ticket-page/${ticket._id}`}>

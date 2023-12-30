@@ -23,5 +23,17 @@ export async function PUT(req: Request, { params }: any) {
         console.log(error);
         return NextResponse.json({ message: "Error", error }, { status: 500 })
     }
+}
 
+export async function DELETE(req: Request, { params }: any) {
+    try {
+        const { id } = params
+
+        await Ticket.findByIdAndDelete(id)
+
+        return NextResponse.json({ message: "Ticket deleted" }, { status: 200 })
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json({ message: "Error", error }, { status: 500 })
+    }
 }
