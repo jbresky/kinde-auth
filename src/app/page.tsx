@@ -1,9 +1,12 @@
+import CreateTicket from "./components/create-ticket";
 import TicketCard from "./components/ticket-card";
 const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
 
 const getTickets = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/api/Tickets`)
+    const res = await fetch(`${BASE_URL}/api/Tickets`, {
+      cache: "no-store"
+    })
 
     if (!res.ok) {
       throw new Error("Failed to fetch topics")
@@ -32,28 +35,30 @@ const Home = async () => {
 
   return (
     // <div className="px-4">Tickets</div>
-    <div className="px-4">
-      {
-        tickets && uniqueCategories?.map((uniqueCategory, categoryIndex) => (
-          <div key={categoryIndex} className="mb-4">
-            <h2 className="text-slate-500 font-semibold">{uniqueCategory}</h2>
-            <div className="lg:grid grid-cols-2 2xl:grid-cols-4 gap-2">
-              {
-                tickets.filter((ticket: any) => ticket.category === uniqueCategory)
-                  .map((filteredTicket: any, _index: any) => (
-                    <TicketCard
-                      id={_index}
-                      key={_index}
-                      ticket={filteredTicket}
-                    />
-                  ))
-              }
+    <main className="m-4">
+        {
+          tickets && uniqueCategories?.map((uniqueCategory, categoryIndex) => (
+            <div key={categoryIndex} className="mb-4">
+              <h2 className="text-slate-500 font-semibold">{uniqueCategory}</h2>
+              <div className="grid grid-cols-2 2xl:grid-cols-4 gap-2">
+                {
+                  tickets.filter((ticket: any) => ticket.category === uniqueCategory)
+                    .map((filteredTicket: any, _index: any) => (
+                      <TicketCard
+                        id={_index}
+                        key={_index}
+                        ticket={filteredTicket}
+                      />
+                    ))
+                }
+              </div>
             </div>
-          </div>
-        ))
-      }
-    </div>
-  );
+          ))
+        }
+        <CreateTicket />
+        {/* </div> */}
+      </main>
+      );
 }
 
-export default Home
+      export default Home
