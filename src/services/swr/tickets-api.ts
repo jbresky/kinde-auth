@@ -9,7 +9,7 @@ const ticketsApi = axios.create({
 export const ticketsUrlEndpoint = '/api/Tickets'
 
 export const getTickets = async () => {
-    await delay()
+    // await delay()
     const response = await ticketsApi.get(ticketsUrlEndpoint)
     return response.data
 }
@@ -25,6 +25,6 @@ export const deleteTicket = async ({ id }: { id: string }) => {
 }
 
 export const updateTicket = async ({ id }: { id: string}, ticket: any) => {
-    const response = await ticketsApi.put(`${ticketsUrlEndpoint}/${id}`, ticket)
+    const response = await ticketsApi.patch(`${ticketsUrlEndpoint}/${id}`, ticket)
     return response.data
 }
