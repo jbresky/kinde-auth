@@ -33,7 +33,7 @@ const TicketCard = ({ ticket }: any) => {
                     <DeleteBlock id={ticket._id} />
                 </div>
             </div>
-            <Link href={`/ticket-page/${ticket._id}`}>
+            <Link href={`/ticket-page/${ticket._id}`} prefetch={false}>
                 <h4 className="mb-1 font-semibold">{ticket.title}</h4>
                 <hr className="h-px border-0 bg-gray-300 mb-2 "></hr>
                 <p className="whitespace-pre-wrap">{ticket.description}</p>
