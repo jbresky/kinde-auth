@@ -1,41 +1,30 @@
+'use client'
+
 import CreateTicket from "./components/create-ticket";
 import TicketCard from "./components/ticket-card";
-const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
+import { Toaster } from "react-hot-toast"
+import useSWR from 'swr'
+import { getTickets, ticketsUrlEndpoint as cacheKey } from "@/services/swr/tickets-api";
+import { preload } from 'swr'
 
-const getTickets = async () => {
-  try {
-    const res = await fetch(`${BASE_URL}/api/Tickets`, {
-      cache: "no-store"
-    })
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch topics")
-    }
-
-    return res.json()
-
-  } catch (error) {
-    console.log("Error loading topics: ", error);
-  }
-}
+preload(cacheKey, getTickets)
 
 const Home = async () => {
-  const data = await getTickets()
 
-  if (!data.tickets) {
-    return <p>No tickets</p>
-  }
+  const { data } = useSWR(cacheKey, getTickets)
 
   const tickets = data.tickets
-
+  console.log(tickets);
+  
   const uniqueCategories = [
     //@ts-ignore
     ...new Set(tickets?.map(({ category }: any) => category))
   ]
 
   return (
-    // <div className="px-4">Tickets</div>
-    <main className="m-4">
+    <>
+      <Toaster toastOptions={{ position: 'top-center' }} />
+      <main className="m-4">
         {
           tickets && uniqueCategories?.map((uniqueCategory, categoryIndex) => (
             <div key={categoryIndex} className="mb-4">
@@ -56,9 +45,9 @@ const Home = async () => {
           ))
         }
         <CreateTicket />
-        {/* </div> */}
       </main>
-      );
+    </>
+  );
 }
 
-      export default Home
+export default Home

@@ -1,12 +1,17 @@
 'use client'
 
+import { ticketsUrlEndpoint as cacheKey, updateTicket, getTickets, addTicket } from "@/services/swr/tickets-api";
 import { useRouter } from "next/navigation";
 import { useState, useId } from "react"
 import { FcHighPriority } from "react-icons/fc";
 import { FcMediumPriority } from "react-icons/fc";
 import { FcLowPriority } from "react-icons/fc";
+import { toast } from 'react-hot-toast'
+import useSWR from 'swr'
 
 const EditTicketForm = ({ ticket }: { ticket: any }) => {
+  const { mutate } = useSWR(cacheKey, getTickets)
+
   const EDITMODE = ticket._id === "new" ? false : true
   const router = useRouter()
 
@@ -41,6 +46,38 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
 
   const [formData, setFormData] = useState(initialTicketData)
 
+  const addTicketMutation = async (newTicket: any) => {
+    try {
+      await addTicket(newTicket)
+      mutate()
+
+      toast.success("Succes! Added new item", {
+        duration: 1000,
+        icon: '🎉'
+      })
+    } catch (error) {
+      toast.error("Failed to add new item", {
+        duration: 1000
+      })
+    }
+  }
+
+  // const updateTicketMutation = async (updatedTicket: any) => {
+  //   try {
+  //     await updateTicket(ticket._id, updatedTicket)
+  //     mutate()
+
+  //     toast.success("Success! Updated item", {
+  //       duration: 2000,
+  //       icon: '🛩️'
+  //     })
+  //   } catch (error) {
+  //     toast.error("Failed to update todo", {
+  //       duration: 1000
+  //     })
+  //   }
+  // }
+
   const handleChange = (e: any) => {
 
     setFormData((prevState: any) => ({
@@ -52,6 +89,7 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
     e.preventDefault()
 
     if (EDITMODE) {
+      // updateTicketMutation({ formData })
       const res = await fetch(`/api/Tickets/${ticket._id}`, {
         method: "PUT",
         headers: {
@@ -62,26 +100,18 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
 
       if (!res.ok) throw new Error("Failed to update ticket")
 
+
     } else {
-
-      const res = await fetch('/api/Tickets', {
-        method: "POST",
-        body: JSON.stringify({ formData }),
-        //@ts-ignore
-        "Content-Type": "application-json",
-      })
-
-      if (!res.ok) throw new Error("Failed to create ticket")
+      addTicketMutation({ formData })
     }
 
-    router.refresh()
     router.push('/')
   }
 
   const categories = [
     "Hardware Problem",
     "Software Problem",
-    "Application Deveopment",
+    "Application Development",
     "Project"
   ]
 
