@@ -1,4 +1,4 @@
-import { ClipLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 
 const Loader = () => {
     return ( 
@@ -10,9 +10,9 @@ const Loader = () => {
             justify-center 
             items-center"
     >
-        <ClipLoader
-            size={100}
-            color="gray"
+        <BeatLoader
+            size={20}
+            color="slate"
         />
     </div>
      );
