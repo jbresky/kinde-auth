@@ -23,18 +23,18 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <header>
-          <nav className="p-4 2xl:px-32">
+          <nav className="py-4 px-20 2xl:px-32">
             <div>
               {!(await isAuthenticated()) ? (
                 <div className="flex justify-between items-center gap-4">
-                  <div>
+                  <div className="font-semibold">
                     <Link href="/">Home</Link>
                   </div>
                   <div className="flex items-center gap-4">
-                    <LoginLink className="rounded-lg border-2 bg-slate-100 hover:opacity-70 transition duration-200 p-2">
+                    <LoginLink className="rounded-lg border-2 bg-slate-100/40 hover:opacity-70 transition duration-200 py-1 px-2">
                       Sign in
                     </LoginLink>
-                    <RegisterLink className="rounded-lg border-2 bg-slate-100 p-2 hover:opacity-70 transition duration-200">Sign up</RegisterLink>
+                    <RegisterLink className="rounded-lg border-2 bg-slate-100/40 py-1 px-2 hover:opacity-70 transition duration-200">Sign up</RegisterLink>
                   </div>
                 </div>
               ) : (
