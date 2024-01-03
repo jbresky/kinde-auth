@@ -27,7 +27,7 @@ const TicketCard = ({ ticket }: any) => {
 
     return (
         <div className="flex flex-col border-2 border-gray-300 rounded-xl hover:shadow-lg transition duration-300 p-4 mt-2">
-            <div className="flex mb-3">
+            <div className="flex mb-4">
                 <Priority priority={ticket.priority} />
                 <div className="ml-auto cursor-pointer">
                     <DeleteBlock id={ticket._id} />
@@ -41,7 +41,7 @@ const TicketCard = ({ ticket }: any) => {
                 <div className="flex-grow"></div>
                 <div className="flex mt-2">
                     <div className="flex flex-col">
-                        <p className="text-xs my-1">{createdAt}</p>
+                        <p className="text-xs my-1 tracking-wide">{createdAt}</p>
                         <Progress progress={ticket.progress} />
                     </div>
                     <div className="ml-auto flex items-end">
