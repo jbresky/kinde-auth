@@ -14,17 +14,22 @@ export const getTickets = async () => {
     return response.data
 }
 
+export const getTicketById = async (id: string) => {
+    const response = await ticketsApi.get(`${ticketsUrlEndpoint}/${id}`)
+    return response.data
+}
+
 export const addTicket = async (newTicket: any) => {
     const response = await ticketsApi.post(ticketsUrlEndpoint, newTicket)
     return response.data
 }
 
-export const deleteTicket = async ({ id }: { id: string }) => {
+export const deleteTicket = async (id: string) => {
     const response = await ticketsApi.delete(`${ticketsUrlEndpoint}/${id}`)
     return response.data
 }
 
-export const updateTicket = async ({ id }: { id: string}, ticket: any) => {
-    const response = await ticketsApi.patch(`${ticketsUrlEndpoint}/${id}`, ticket)
+export const updateTicket = async (id: string, ticket: any) => {
+    const response = await ticketsApi.put(`${ticketsUrlEndpoint}/${id}`, ticket)
     return response.data
 }
