@@ -1,17 +1,23 @@
 'use client'
 
 import { AiTwotoneDelete } from "react-icons/ai";
-import toast from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import useSWR from 'swr'
+import { useState } from 'react'
 import { ticketsUrlEndpoint as cacheKey, deleteTicket, getTickets } from "@/services/swr/tickets-api";
+import { deleteTicketOptions } from "@/services/swr/tickets-swr-options";
+import { BeatLoader } from "react-spinners";
 
 const DeleteBlock = ({ id }: { id: string }) => {
-    const { mutate } = useSWR(cacheKey, getTickets)
+    const [loading, setLoading] = useState(false)
+    const { mutate, isLoading } = useSWR(cacheKey, getTickets)
 
     const deleteTicketMutation = async () => {
         try {
-            await deleteTicket({ id })
+            setLoading(true)
+            await deleteTicket(id)
             mutate()
+
             toast.success("Succes! Item deleted", {
                 duration: 1000,
                 icon: '🎉'
@@ -25,7 +31,8 @@ const DeleteBlock = ({ id }: { id: string }) => {
 
     return (
         <>
-            <AiTwotoneDelete onClick={deleteTicketMutation} />
+        <Toaster toastOptions={{ position: 'bottom-center'}}/>
+            {loading ? <BeatLoader /> : <AiTwotoneDelete onClick={deleteTicketMutation} />}
         </>
     );
 }
