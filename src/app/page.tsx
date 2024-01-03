@@ -2,35 +2,14 @@
 
 import CreateTicket from "./components/create-ticket";
 import TicketCard from "./components/ticket-card";
-import { Toaster } from "react-hot-toast"
-import useSWR from 'swr'
+import useSWR, { preload } from 'swr'
 import { getTickets, ticketsUrlEndpoint as cacheKey } from "@/services/swr/tickets-api";
-import { preload } from 'swr'
-import Loader from "./components/loader";
+import { BeatLoader } from "react-spinners";
 
-// const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
-
-// const getTickets = async () => {
-//   try {
-//     const res = await fetch(`${BASE_URL}/api/Tickets`);
-
-//     if (!res.ok) {
-//       throw new Error("Failed to fetch topics");
-//     }
-
-//     return res.json();
-//   } catch (error) {
-//     console.log("Error loading topics: ", error);
-//   }
-// };
-
-preload(cacheKey, getTickets)
+// preload(cacheKey, getTickets)
 
 const Home = async () => {
   const { data, isLoading, error } = useSWR(cacheKey, getTickets)
-  // const data = await getTickets()
-
-  // const tickets = data.tickets
 
   const uniqueCategories = [
     //@ts-ignore
@@ -40,13 +19,12 @@ const Home = async () => {
   let content
 
   if (isLoading) {
-    content = <Loader />
+    content = <div className="p-24"> <BeatLoader color="gray"/> </div>
   } else if (error) {
     content = <p>{error.message}</p>
   } else {
     content = (
-      // <p>{JSON.stringify(data, null, 2)}</p>
-      <main className="m-4">
+      <main className="mb-6 px-20">
         {
           data && data.tickets && uniqueCategories?.map((uniqueCategory, categoryIndex) => (
             <div key={categoryIndex} className="mb-4">
@@ -73,7 +51,6 @@ const Home = async () => {
 
   return (
     <>
-      <Toaster toastOptions={{ position: 'top-center' }} />
       {content}
     </>
   );
