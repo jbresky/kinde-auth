@@ -1,8 +1,26 @@
 const Status = ({ status }: { status: string }) => {
-  
+    const getColor = (status: string) => {
+        let color;
+        switch (status.toLowerCase()) {
+            case "done":
+                color = "bg-[#8bc34a]";
+                return color;
+
+            case "started":
+                color = "bg-[#ffeb3b]";
+                return color;
+
+            case "not started":
+                color = "bg-[#ef6565]";
+                return color;
+            default:
+                color = "bg-slate-700";
+        }
+        return color;
+    };
     return (
         <span
-            className={`inline-block rounded-full text-[#1b9036] px-2 py-1 border-[2px] border-gray-300 text-xs font-semibold`}
+            className={`inline-block opacity-90 rounded-full px-2 py-1 text-xs font-semibold ${getColor(status)}`}
         >
             {status}
         </span>
