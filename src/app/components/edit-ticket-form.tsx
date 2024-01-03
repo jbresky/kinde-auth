@@ -6,11 +6,14 @@ import { useState, useId } from "react"
 import { FcHighPriority } from "react-icons/fc";
 import { FcMediumPriority } from "react-icons/fc";
 import { FcLowPriority } from "react-icons/fc";
-import { toast } from 'react-hot-toast'
+import { toast, Toaster } from 'react-hot-toast'
 import useSWR from 'swr'
+import { BeatLoader } from "react-spinners";
 
 const EditTicketForm = ({ ticket }: { ticket: any }) => {
-  const { mutate } = useSWR(cacheKey, getTickets)
+  const [loading, setLoading] = useState(false)
+
+  const { mutate, isLoading } = useSWR(cacheKey, getTickets)
 
   const EDITMODE = ticket._id === "new" ? false : true
   const router = useRouter()
@@ -44,10 +47,11 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
     initialTicketData["category"] = ticket.category
   }
 
-  const [formData, setFormData] = useState(initialTicketData)
+  const [formData, setFormData] = useState<any>(initialTicketData)
 
   const addTicketMutation = async (newTicket: any) => {
     try {
+      setLoading(true)
       await addTicket(newTicket)
       mutate()
 
@@ -55,6 +59,7 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
         duration: 1000,
         icon: '🎉'
       })
+      setLoading(false)
     } catch (error) {
       toast.error("Failed to add new item", {
         duration: 1000
@@ -62,21 +67,24 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
     }
   }
 
-  // const updateTicketMutation = async (updatedTicket: any) => {
-  //   try {
-  //     await updateTicket(ticket._id, updatedTicket)
-  //     mutate()
+  const updateTicketMutation = async (updatedTicket: any) => {
+    try {
+      setLoading(true)
+      await updateTicket(ticket._id, updatedTicket)
+      mutate()
 
-  //     toast.success("Success! Updated item", {
-  //       duration: 2000,
-  //       icon: '🛩️'
-  //     })
-  //   } catch (error) {
-  //     toast.error("Failed to update todo", {
-  //       duration: 1000
-  //     })
-  //   }
-  // }
+      toast.success("Success! Updated item", {
+        duration: 1000,
+        icon: '🛩️'
+      })
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      toast.error("Failed to update todo", {
+        duration: 1000
+      })
+    }
+  }
 
   const handleChange = (e: any) => {
 
@@ -89,23 +97,16 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
     e.preventDefault()
 
     if (EDITMODE) {
-      // updateTicketMutation({ formData })
-      const res = await fetch(`/api/Tickets/${ticket._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ formData })
-      })
-
-      if (!res.ok) throw new Error("Failed to update ticket")
-
-
+      updateTicketMutation({ formData })
+      setTimeout(() => {
+        router.push('/')
+      }, 1000)
     } else {
       addTicketMutation({ formData })
+      setTimeout(() => {
+        router.push('/')
+      }, 1000)
     }
-
-    router.push('/')
   }
 
   const categories = [
@@ -116,108 +117,111 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
   ]
 
   return (
-    <div className="my-10">
-      <form
-        onSubmit={handleSubmit}
-        method="post"
-        className="m-auto flex flex-col gap-5 w-5/6 xl:w-1/2"
-      >
-        <h3 className="text-2xl font-semibold">{EDITMODE ? 'Update ticket' : 'Create New Ticket'}</h3>
-        <label htmlFor={titleId}>Title</label>
-        <input
-          id={titleId}
-          className="text-sm border-2 p-2 rounded-lg"
-          name="title"
-          type="text"
-          onChange={handleChange}
-          required={true}
-          value={formData.title}
-        />
-        <label htmlFor={descriptionId}>Description</label>
-        <textarea
-          id={descriptionId}
-          name="description"
-          className="text-sm border-2 p-2 rounded-lg"
-          onChange={handleChange}
-          required={true}
-          value={formData.description}
-        />
-
-        <label htmlFor={categoryId}>Category</label>
-        <select className="text-sm text-gray-800" id={categoryId} name="category" value={formData.category} onChange={handleChange}>
-          {categories.map((category, index) => (
-            <option key={index} value={category} className="text-gray-600 text-sm">
-              {category}
-            </option>
-          ))}
-        </select>
-
-        <label>Priority</label>
-        <div className="flex flex-col gap-5 justify-between items-left">
-          <div className="flex gap-5">
-            <input
-              id={priority1}
-              name="priority"
-              type="radio"
-              onChange={handleChange}
-              value={1}
-              checked={formData.priority == 1}
-            />
-            <label>
-              <FcLowPriority />
-            </label>
-          </div>
-          <div className="flex gap-5">
-            <input
-              id={priority2}
-              name="priority"
-              type="radio"
-              onChange={handleChange}
-              value={2}
-              checked={formData.priority == 2}
-            />
-            <label>
-              <FcMediumPriority />
-            </label>
-          </div>
-          <div className="flex gap-5">
-            <input
-              id={priority3}
-              name="priority"
-              type="radio"
-              onChange={handleChange}
-              value={3}
-              checked={formData.priority == 3}
-            />
-            <label>
-              <FcHighPriority />
-            </label>
-          </div>
-        </div>
-
-        <label htmlFor={progressId}>Progress</label>
-        <input
-          type="range"
-          id="progress"
-          name="progress"
-          value={formData.progress}
-          min="0"
-          max="100"
-          onChange={handleChange}
-        />
-        <label htmlFor={statusId}>Status</label>
-        <select className="text-gray-700 text-sm" id={statusId} name="status" value={formData.status} onChange={handleChange}>
-          <option className="text-gray-500 text-sm" value="not started">Not Started</option>
-          <option className="text-gray-500 text-sm" value="started">Started</option>
-          <option className="text-gray-500 text-sm" value="done">Done</option>
-        </select>
-        <button
-          className="w-full border-2 px-4 py-2 rounded-lg hover:shadow-md transition duration-200"
+    <>
+      <Toaster toastOptions={{ position: 'bottom-center' }} />
+      <div className="my-10">
+        <form
+          onSubmit={handleSubmit}
+          method="post"
+          className="m-auto flex flex-col gap-5 w-5/6 xl:w-1/2"
         >
-          {EDITMODE ? 'Update Ticket' : 'Create Ticket'}
-        </button>
-      </form>
-    </div>
+          <h3 className="text-2xl font-semibold">{EDITMODE ? 'Update Ticket' : 'Create New Ticket'}</h3>
+          <label htmlFor={titleId}>Title</label>
+          <input
+            id={titleId}
+            className="text-sm border-2 p-2 rounded-lg"
+            name="title"
+            type="text"
+            onChange={handleChange}
+            required={true}
+            value={formData.title}
+          />
+          <label htmlFor={descriptionId}>Description</label>
+          <textarea
+            id={descriptionId}
+            name="description"
+            className="text-sm border-2 p-2 rounded-lg"
+            onChange={handleChange}
+            required={true}
+            value={formData.description}
+          />
+
+          <label htmlFor={categoryId}>Category</label>
+          <select className="text-sm text-gray-800" id={categoryId} name="category" value={formData.category} onChange={handleChange}>
+            {categories.map((category, index) => (
+              <option key={index} value={category} className="text-gray-600 text-sm">
+                {category}
+              </option>
+            ))}
+          </select>
+
+          <label>Priority</label>
+          <div className="flex flex-col gap-5 justify-between items-left">
+            <div className="flex gap-5">
+              <input
+                id={priority1}
+                name="priority"
+                type="radio"
+                onChange={handleChange}
+                value={1}
+                checked={formData.priority == 1}
+              />
+              <label>
+                <FcLowPriority />
+              </label>
+            </div>
+            <div className="flex gap-5">
+              <input
+                id={priority2}
+                name="priority"
+                type="radio"
+                onChange={handleChange}
+                value={2}
+                checked={formData.priority == 2}
+              />
+              <label>
+                <FcMediumPriority />
+              </label>
+            </div>
+            <div className="flex gap-5">
+              <input
+                id={priority3}
+                name="priority"
+                type="radio"
+                onChange={handleChange}
+                value={3}
+                checked={formData.priority == 3}
+              />
+              <label>
+                <FcHighPriority />
+              </label>
+            </div>
+          </div>
+
+          <label htmlFor={progressId}>Progress</label>
+          <input
+            type="range"
+            id="progress"
+            name="progress"
+            value={formData.progress}
+            min="0"
+            max="100"
+            onChange={handleChange}
+          />
+          <label htmlFor={statusId}>Status</label>
+          <select className="text-gray-700 text-sm" id={statusId} name="status" value={formData.status} onChange={handleChange}>
+            <option className="text-gray-500 text-sm" value="not started">Not Started</option>
+            <option className="text-gray-500 text-sm" value="started">Started</option>
+            <option className="text-gray-500 text-sm" value="done">Done</option>
+          </select>
+          <button
+            className="w-full border-2 px-4 py-2 rounded-lg hover:shadow-md transition duration-200"
+          >
+            {loading ? <BeatLoader /> : 'Create Ticket'}
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
 
