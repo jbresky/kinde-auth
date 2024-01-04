@@ -54,14 +54,9 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
       setLoading(true)
       await addTicket(newTicket)
       mutate()
-
-      toast.success("Succes! Added new item", {
-        duration: 1000,
-        icon: '🎉'
-      })
       setLoading(false)
     } catch (error) {
-      toast.error("Failed to add new item", {
+      toast.error("Failed to create ticket", {
         duration: 1000
       })
     }
@@ -72,15 +67,10 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
       setLoading(true)
       await updateTicket(ticket._id, updatedTicket)
       mutate()
-
-      toast.success("Success! Updated item", {
-        duration: 1000,
-        icon: '🛩️'
-      })
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      toast.error("Failed to update todo", {
+      toast.error("Failed to update ticket", {
         duration: 1000
       })
     }
@@ -119,11 +109,11 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
   return (
     <>
       <Toaster toastOptions={{ position: 'bottom-center' }} />
-      <div className="my-10">
+      <div className="my-5">
         <form
           onSubmit={handleSubmit}
           method="post"
-          className="m-auto flex flex-col gap-5 w-5/6 xl:w-1/2"
+          className="m-auto flex flex-col gap-3 w-5/6 xl:w-1/2"
         >
           <h3 className="text-2xl font-semibold">{EDITMODE ? 'Update Ticket' : 'Create New Ticket'}</h3>
           <label htmlFor={titleId}>Title</label>
@@ -146,17 +136,17 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
             value={formData.description}
           />
 
-          <label htmlFor={categoryId}>Category</label>
-          <select className="text-sm text-gray-800" id={categoryId} name="category" value={formData.category} onChange={handleChange}>
-            {categories.map((category, index) => (
-              <option key={index} value={category} className="text-gray-600 text-sm">
-                {category}
-              </option>
-            ))}
-          </select>
+          <div className="flex gap-5 justify-between py-2 items-center">
+            <label htmlFor={categoryId}>Category</label>
+            <select className="text-sm text-gray-800" id={categoryId} name="category" value={formData.category} onChange={handleChange}>
+              {categories.map((category, index) => (
+                <option key={index} value={category} className="text-gray-600 text-sm">
+                  {category}
+                </option>
+              ))}
+            </select>
 
-          <label>Priority</label>
-          <div className="flex flex-col gap-5 justify-between items-left">
+            <label>Priority</label>
             <div className="flex gap-5">
               <input
                 id={priority1}
