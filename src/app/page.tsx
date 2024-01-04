@@ -29,7 +29,7 @@ const Home = async () => {
           data && data.tickets && uniqueCategories?.map((uniqueCategory, categoryIndex) => (
             <div key={categoryIndex} className="mb-4">
               <h2 className="text-slate-500 font-semibold">{uniqueCategory}</h2>
-              <div className="grid grid-cols-2 2xl:grid-cols-4 gap-2">
+              <div className="lg:grid grid-cols-2 2xl:grid-cols-4 gap-2">
                 {
                   data && data.tickets.filter((ticket: any) => ticket.category === uniqueCategory)
                     .map((filteredTicket: any, _index: any) => (

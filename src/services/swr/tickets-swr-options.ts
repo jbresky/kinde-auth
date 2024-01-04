@@ -1,4 +1,4 @@
-export const deleteTicketOptions = ({ id }: { id: string}) => {
+export const deleteTicketOptions = (id: string) => {
     return {
         optimisticData: (tickets: any) => {
             return tickets.filter((ticket: any) => {
