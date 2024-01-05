@@ -34,7 +34,7 @@ const Home = async () => {
                   data && data.tickets.filter((ticket: any) => ticket.category === uniqueCategory)
                     .map((filteredTicket: any, _index: any) => (
                       <TicketCard
-                        id={_index}
+                        // id={_index}
                         key={_index}
                         ticket={filteredTicket}
                       />
