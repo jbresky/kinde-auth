@@ -6,7 +6,7 @@ import Priority from "./priority";
 import Progress from "./progress";
 import Status from "./status";
 
-const TicketCard = ({ ticket }: any) => {
+const TicketCard = ({ ticket }: { ticket: any }) => {
 
     function formatTimestamp(timestamp: any) {
 
@@ -36,18 +36,22 @@ const TicketCard = ({ ticket }: any) => {
             <Link href={`/ticket-page/${ticket._id}`} prefetch={false}>
                 <h4 className="mb-1 font-semibold">{ticket.title}</h4>
                 <hr className="h-px border-0 bg-gray-300 mb-2 "></hr>
-                <p className="whitespace-pre-wrap">{ticket.description}</p>
+                    <p className="whitespace-pre-wrap">{ticket.description}</p>
 
-                <div className="flex-grow"></div>
-                <div className="flex mt-2">
-                    <div className="flex flex-col">
-                        <p className="text-xs my-1 tracking-wide">{createdAt}</p>
-                        <Progress progress={ticket.progress} />
+                    {/* <div className="flex-grow"></div> */}
+                    <div className="flex mt-2">
+                        <div className="flex flex-col">
+                            <p className="text-xs my-1 tracking-wide">{createdAt}</p>
+                            <Progress progress={ticket.progress} />
+                        </div>
+                        <div className="ml-auto flex items-end">
+                            <Status status={ticket.status} />
+                        </div>
                     </div>
-                    <div className="ml-auto flex items-end">
-                        <Status status={ticket.status} />
+                    <div className="pt-4 flex justify-between">
+                        <p className="whitespace-pre-wrap">Employee: employee name</p>
+                        <p className="whitespace-pre-wrap">#employeeId</p>
                     </div>
-                </div>
             </Link>
         </div>
     );
