@@ -38,27 +38,25 @@ export default async function RootLayout({
                   </div>
                 </div>
               ) : (
-                <div className="flex justify-between items-center w-full font-semibold">
+                <div className="flex justify-between items-center w-full pt-2">
                   {user?.picture ? (
-                    <img
-                      className="avatar"
-                      src={user?.picture}
-                      alt="user profile avatar"
-                      referrerPolicy="no-referrer"
-                    />
+                    <Link href='/'>
+                      <img
+                        className="avatar"
+                        src={user?.picture}
+                        alt="user profile avatar"
+                        referrerPolicy="no-referrer"
+                      />
+                    </Link>
                   ) : (
                     <div className="avatar">
                       {user?.given_name?.[0]}
                       {user?.family_name?.[0]}
                     </div>
                   )}
-                  <div>
-                    <p className="">
-                      {user?.given_name}
-                      {user?.family_name}
-                    </p>
-
-                    <LogoutLink className="">Log out</LogoutLink>
+                  <div className="flex items-center gap-6">
+                    {user && <Link className="hover:underline" href='/dashboard'>Dashboard</Link>}
+                    <LogoutLink className="hover:underline">Log out</LogoutLink>
                   </div>
                 </div>
               )}
