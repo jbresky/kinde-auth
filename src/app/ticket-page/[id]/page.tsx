@@ -1,4 +1,4 @@
-import EditTicketForm from "@/app/components/edit-ticket-form"
+import EditTicketForm from "@/app/components/tickets/edit-ticket-form"
 
 const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
 
