@@ -1,49 +1,34 @@
 'use client'
 
-import CreateTicket from "./components/create-ticket";
-import TicketCard from "./components/ticket-card";
+import CreateTicket from "./components/tickets/create-ticket";
 import useSWR, { preload } from 'swr'
 import { getTickets, ticketsUrlEndpoint as cacheKey } from "@/services/swr/tickets-api";
 import { BeatLoader } from "react-spinners";
+import FilteredTickets from "./components/tickets/filtered-tickets";
 
-// preload(cacheKey, getTickets)
+preload(cacheKey, getTickets)
 
 const Home = async () => {
   const { data, isLoading, error } = useSWR(cacheKey, getTickets)
 
   const uniqueCategories = [
     //@ts-ignore
-    ...new Set(data && data.tickets?.map(({ category }: any) => category))
+    ...new Set(data && data.tickets?.map(({ category }: { category: string }) => category))
   ]
 
   let content
 
   if (isLoading) {
-    content = <div className="p-24"> <BeatLoader color="gray"/> </div>
+    content = <div className="p-24"> <BeatLoader color="gray" /> </div>
   } else if (error) {
     content = <p>{error.message}</p>
   } else {
     content = (
-      <main className="mb-6 px-20">
-        {
-          data && data.tickets && uniqueCategories?.map((uniqueCategory, categoryIndex) => (
-            <div key={categoryIndex} className="mb-4">
-              <h2 className="text-slate-500 font-semibold">{uniqueCategory}</h2>
-              <div className="lg:grid grid-cols-2 2xl:grid-cols-4 gap-2">
-                {
-                  data && data.tickets.filter((ticket: any) => ticket.category === uniqueCategory)
-                    .map((filteredTicket: any, _index: any) => (
-                      <TicketCard
-                        // id={_index}
-                        key={_index}
-                        ticket={filteredTicket}
-                      />
-                    ))
-                }
-              </div>
-            </div>
-          ))
-        }
+      <main className="mb-6 px-2 lg:px-20">
+        <FilteredTickets
+          data={data}
+          uniqueCategories={uniqueCategories}
+        />
         <CreateTicket />
       </main>
     )
