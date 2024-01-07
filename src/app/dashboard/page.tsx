@@ -10,12 +10,14 @@ export default function Dashboard() {
 
   return (
     <div className="py-4 px-20 2xl:px-32">
-        <h1 className="text-2xl">Your tickets</h1>
+      <h1 className="text-2xl">Your tickets</h1>
       <div className="lg:grid grid-cols-2 2xl:grid-cols-4 mt-3">
         {
           isLoading ? <p>Loading...</p> : (
-            data && data.tickets.map((ticket: any) => (
-              <TicketCard ticket={ticket} />
+            data && data.tickets.map((ticket: any, i: any) => (
+              <TicketCard
+                key={i}
+                ticket={ticket} />
             ))
           )
         }
