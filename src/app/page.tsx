@@ -24,7 +24,7 @@ const Home = async () => {
     content = <p>{error.message}</p>
   } else {
     content = (
-      <main className="mb-6 px-2 lg:px-20">
+      <main className="mb-6 px-2 md:px-20">
         <FilteredTickets
           data={data}
           uniqueCategories={uniqueCategories}

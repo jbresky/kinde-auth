@@ -49,8 +49,12 @@ const TicketCard = ({ ticket }: { ticket: any }) => {
                         </div>
                     </div>
                     <div className="pt-4 flex justify-between">
+                        
+                        {/* kinde data */}
                         <p className="whitespace-pre-wrap">Employee: employee name</p>
-                        <p className="whitespace-pre-wrap">#employeeId</p>
+
+                        {/* ticket id */}
+                        <p className="whitespace-pre-wrap">#{ticket._id.slice(0, 7)}</p>
                     </div>
             </Link>
         </div>
