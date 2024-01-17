@@ -3,13 +3,13 @@ import Link from "next/link";
 
 const WelcomeNav = () => {
     return ( 
-        <div className="flex justify-between items-center gap-4">
+        <div className="flex justify-between items-center">
             <Link href="/" className="text-2xl font-mono">Ticketing app</Link>
-        <div className="flex items-center gap-4">
-            <LoginLink className="rounded-lg border-2 bg-slate-100/40 hover:opacity-70 transition duration-200 py-1 px-2">
+        <div className="flex items-center font-sans">
+            <LoginLink className="rounded-lg hover:bg-[#f5f5f5] font-medium transition duration-200 py-3 px-5">
                 Sign in
             </LoginLink>
-            <RegisterLink className="rounded-lg border-2 bg-slate-100/40 py-1 px-2 hover:opacity-70 transition duration-200">Sign up</RegisterLink>
+            <RegisterLink className="rounded-lg hover:bg-[#f5f5f5] font-medium transition duration-200 py-3 px-5">Sign up</RegisterLink>
         </div>
     </div>
 )}
