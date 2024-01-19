@@ -1,4 +1,6 @@
-import { RegisterLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/server";
+'use client'
+
+import { RegisterLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs";
 import Link from "next/link";
 
 const WelcomeNav = () => {
