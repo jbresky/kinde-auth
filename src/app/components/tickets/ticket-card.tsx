@@ -26,7 +26,7 @@ const TicketCard = ({ ticket }: { ticket: any }) => {
     const createdAt = formatTimestamp(ticket.createdAt)
 
     return (
-        <div className="flex flex-col font-sans border-2 border-gray-300 rounded-xl hover:shadow-lg transition duration-300 p-4 mt-2">
+        <div className="flex flex-col font-sans border-2 border-gray-300 rounded-xl hover:shadow-md transition duration-200 p-4 mt-2">
             <div className="flex mb-4">
                 <Priority priority={ticket.priority} />
                 <div className="ml-auto cursor-pointer">
