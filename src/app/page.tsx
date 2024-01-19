@@ -25,6 +25,11 @@ const Home = async () => {
   } else {
     content = (
       <main className="mb-6 px-2 md:px-20">
+        <div className='text-right mb-6'>
+          <input 
+          className='p-2 rounded-lg bg-slate-100 placeholder:text-gray-600 placeholder:text-sm text-sm focus:outline-none focus:ring focus:ring-gray-600'
+          placeholder='Search by title..'/>
+        </div>        
         <FilteredTickets
           data={data}
           uniqueCategories={uniqueCategories}
