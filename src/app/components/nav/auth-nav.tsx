@@ -11,7 +11,7 @@ const AuthNav = ({ user }: { user: any }) => {
     return (
         <div className="flex justify-between items-center w-full">
             <div>
-                <Link href="/" className="text-2xl font-mono">Ticketing App</Link>
+                <Link href="/" className="text-2xl font-mono">Ticketing</Link>
             </div>
             <div className="flex items-center font-sans font-medium">
                 {user && path !== '/dashboard' && <Link className="rounded-lg hover:bg-[#f5f5f5] font-medium transition duration-200 py-3 px-5 hidden sm:block" href='/dashboard'>Dashboard</Link>}

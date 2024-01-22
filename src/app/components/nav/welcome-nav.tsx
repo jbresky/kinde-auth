@@ -6,7 +6,7 @@ import Link from "next/link";
 const WelcomeNav = () => {
     return ( 
         <div className="flex justify-between items-center">
-            <Link href="/" className="text-2xl font-mono">Ticketing app</Link>
+            <Link href="/" className="text-2xl font-mono">Ticketing</Link>
         <div className="flex items-center font-sans">
             <LoginLink className="rounded-lg hover:bg-[#f5f5f5] font-medium transition duration-200 py-3 px-5">
                 Sign in
