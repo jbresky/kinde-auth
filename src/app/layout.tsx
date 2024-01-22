@@ -21,7 +21,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <header>
-          <nav className="py-6 px-2 md:px-20">
+          <nav className="py-6 px-4 md:px-20">
             <div>
               {!(await isAuthenticated()) ? (
                 <WelcomeNav />
