@@ -122,6 +122,7 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
             className="text-sm border-2 p-2 rounded-lg"
             name="title"
             type="text"
+            maxLength={30}
             onChange={handleChange}
             required={true}
             value={formData.title}
@@ -132,6 +133,7 @@ const EditTicketForm = ({ ticket }: { ticket: any }) => {
             name="description"
             className="text-sm border-2 p-2 rounded-lg"
             onChange={handleChange}
+            maxLength={60}
             required={true}
             value={formData.description}
           />
