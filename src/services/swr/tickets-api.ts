@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
-const delay = () => new Promise((res: any) => setTimeout(() => res(), 800000))
+// const delay = () => new Promise((res: any) => setTimeout(() => res(), 800000))
 const ticketsApi = axios.create({
     baseURL: BASE_URL
 })
