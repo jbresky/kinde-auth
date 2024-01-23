@@ -1,3 +1,4 @@
+'use client'
 
 import CreateTicket from "./components/tickets/create-ticket";
 import useSWR, { preload } from 'swr'
@@ -8,26 +9,26 @@ import SearchTicket from "./components/searchTicket";
 
 // preload(cacheKey, getTickets)
 
-const getByTitle = async (title: string) => {
-  const tickets = await fetch(`http://localhost:3000/api/Tickets/search-by-title/${title}`)
+// const getByTitle = async (title: string) => {
+//   const tickets = await fetch(`http://localhost:3000/api/Tickets/search-by-title/${title}`)
 
-  if (!tickets.ok) throw new Error('error')
+//   if (!tickets.ok) throw new Error('error')
 
-  return tickets.json()
-}
+//   return tickets.json()
+// }
 
-const getAllTickets = async () => {
-  const tickets = await fetch('http://localhost:3000/api/Tickets', {
-    cache: 'no-store'
-  })
+// const getAllTickets = async () => {
+//   const tickets = await fetch('http://localhost:3000/api/Tickets', {
+//     cache: 'no-store'
+//   })
 
-  if (!tickets.ok) throw new Error('error')
+//   if (!tickets.ok) throw new Error('error')
 
-  return tickets.json()
-}
+//   return tickets.json()
+// }
 
-const Home = async ({ searchParams }: { searchParams: { q: string } }) => {
-  // const { data, isLoading, error } = useSWR(cacheKey, getTickets)
+const Home = async () => {
+  const { data, isLoading, error } = useSWR(cacheKey, getTickets)
 
   // const getData = async () => {
   //   let data
@@ -40,7 +41,7 @@ const Home = async ({ searchParams }: { searchParams: { q: string } }) => {
   //   return data
   // }
 
-  const data = await getByTitle(searchParams.q)
+  // const data = await getByTitle(searchParams.q)
 
   const uniqueCategories = [
     //@ts-ignore
@@ -49,9 +50,10 @@ const Home = async ({ searchParams }: { searchParams: { q: string } }) => {
 
   let content
 
-  if (data.tickets.length < 1) {
-    // content = <div className="p-24"> <BeatLoader color="gray" /> </div>
-    content = <div className="font-sans text-xl mt-10">No matching tickets found 😑</div>
+  // if (data.tickets.length < 1) {
+    if (isLoading) {
+    content = <div className="p-24"> <BeatLoader color="gray" /> </div>
+    // content = <div className="font-sans text-xl mt-10">No matching tickets found 😑</div>
   // else if (error) {
   //   content = <p>{error.message}</p>
   } else {
