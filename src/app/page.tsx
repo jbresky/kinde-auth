@@ -17,7 +17,9 @@ const getByTitle = async (title: string) => {
 }
 
 const getAllTickets = async () => {
-  const tickets = await fetch(`${BASE_URL}/api/Tickets`)
+  const tickets = await fetch(`${BASE_URL}/api/Tickets`, {
+    cache: 'no-store'
+  })
 
   if (!tickets.ok) throw new Error('error')
 
