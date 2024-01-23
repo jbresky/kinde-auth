@@ -29,18 +29,18 @@ const getAllTickets = async () => {
 const Home = async ({ searchParams }: { searchParams: { q: string } }) => {
   // const { data, isLoading, error } = useSWR(cacheKey, getTickets)
 
-  const getData = async () => {
-    let data
-    if(searchParams.q) {
-      data = await getByTitle(searchParams.q)
-    } else {
-      data = await getAllTickets()
-    }
+  // const getData = async () => {
+  //   let data
+  //   if(searchParams.q) {
+  //     data = await getByTitle(searchParams.q)
+  //   } else {
+  //     data = await getAllTickets()
+  //   }
   
-    return data
-  }
+  //   return data
+  // }
 
-  const data = await getData()
+  const data = await getByTitle(searchParams.q)
 
   const uniqueCategories = [
     //@ts-ignore
