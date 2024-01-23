@@ -10,7 +10,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import useSWR from 'swr'
 import { BeatLoader } from "react-spinners";
 
-const EditTicketForm = ({ ticket }: { ticket: any }) => {
+const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
   const [loading, setLoading] = useState(false)
 
   const { mutate, isLoading } = useSWR(cacheKey, getTickets)
