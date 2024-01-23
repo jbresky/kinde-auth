@@ -9,7 +9,7 @@ import SearchTicket from "./components/searchTicket";
 const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
 
 const getByTitle = async (title: string) => {
-  const tickets = await fetch(`http://localhost:3000/api/Tickets/search-by-title/${title}`)
+  const tickets = await fetch(`${BASE_URL}/api/Tickets/search-by-title/${title}`)
 
   if (!tickets.ok) throw new Error('error')
 
