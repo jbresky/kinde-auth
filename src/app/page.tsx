@@ -8,7 +8,7 @@ import FilteredTickets from "./components/tickets/filtered-tickets";
 import SearchTicket from "./components/searchTicket";
 
 // preload(cacheKey, getTickets)
-
+const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
 // const getByTitle = async (title: string) => {
 //   const tickets = await fetch(`http://localhost:3000/api/Tickets/search-by-title/${title}`)
 
@@ -17,18 +17,16 @@ import SearchTicket from "./components/searchTicket";
 //   return tickets.json()
 // }
 
-// const getAllTickets = async () => {
-//   const tickets = await fetch('http://localhost:3000/api/Tickets', {
-//     cache: 'no-store'
-//   })
+const getAllTickets = async () => {
+  const tickets = await fetch(`${BASE_URL}/api/Tickets`)
 
-//   if (!tickets.ok) throw new Error('error')
+  if (!tickets.ok) throw new Error('error')
 
-//   return tickets.json()
-// }
+  return tickets.json()
+}
 
 const Home = async () => {
-  const { data, isLoading, error } = useSWR(cacheKey, getTickets)
+  // const { data, isLoading, error } = useSWR(cacheKey, getTickets)
 
   // const getData = async () => {
   //   let data
@@ -41,7 +39,7 @@ const Home = async () => {
   //   return data
   // }
 
-  // const data = await getByTitle(searchParams.q)
+  const data = await getAllTickets()
 
   const uniqueCategories = [
     //@ts-ignore
@@ -51,19 +49,19 @@ const Home = async () => {
   let content
 
   // if (data.tickets.length < 1) {
-    if (isLoading) {
-    content = <div className="p-24"> <BeatLoader color="gray" /> </div>
+    // if (isLoading) {
+    // content = <div className="p-24"> <BeatLoader color="gray" /> </div>
     // content = <div className="font-sans text-xl mt-10">No matching tickets found 😑</div>
   // else if (error) {
   //   content = <p>{error.message}</p>
-  } else {
+  // } else {
   content = (
         <FilteredTickets
           data={data}
           uniqueCategories={uniqueCategories}
         />
   )
-  }
+  // }
 
   return (
     <>
