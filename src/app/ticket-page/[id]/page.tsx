@@ -4,7 +4,9 @@ const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand
 
 const getTicketById = async (id: string) => {
     try {
-        const res = await fetch(`${BASE_URL}/api/Tickets/${id}`)
+        const res = await fetch(`${BASE_URL}/api/Tickets/${id}`, {
+            cache: 'no-store'
+        })
 
         if(!res.ok) throw new Error("Failed to fetch ticket")
 
