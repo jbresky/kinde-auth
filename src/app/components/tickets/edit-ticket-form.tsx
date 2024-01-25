@@ -13,7 +13,7 @@ import { BeatLoader } from "react-spinners";
 const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
   const [loading, setLoading] = useState(false)
 
-  const { mutate, isLoading } = useSWR(cacheKey, getTickets)
+  const { mutate } = useSWR(cacheKey, getTickets)
 
   const EDITMODE = ticket._id === "new" ? false : true
   const router = useRouter()
@@ -54,6 +54,7 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
       setLoading(true)
       await addTicket(newTicket)
       mutate()
+      router.push('/')
       setLoading(false)
     } catch (error) {
       toast.error("Failed to create ticket", {
@@ -67,6 +68,7 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
       setLoading(true)
       await updateTicket(ticket._id, updatedTicket)
       mutate()
+      router.push('/')
       setLoading(false)
     } catch (error) {
       setLoading(false)
@@ -88,14 +90,8 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
 
     if (EDITMODE) {
       updateTicketMutation({ formData })
-      setTimeout(() => {
-        router.push('/')
-      }, 1000)
     } else {
       addTicketMutation({ formData })
-      setTimeout(() => {
-        router.push('/')
-      }, 1000)
     }
   }
 
@@ -140,7 +136,7 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
 
           <div className="flex gap-5 justify-between py-2 items-center">
             <label htmlFor={categoryId}>Category</label>
-            <select className="text-sm text-gray-800" id={categoryId} name="category" value={formData.category} onChange={handleChange}>
+            <select className="text-sm text-gray-800 p-2 rounded-md bg-[#f5f5f5]" id={categoryId} name="category" value={formData.category} onChange={handleChange}>
               {categories.map((category, index) => (
                 <option key={index} value={category} className="text-gray-600 text-sm">
                   {category}
