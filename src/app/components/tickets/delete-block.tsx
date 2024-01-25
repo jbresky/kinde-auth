@@ -6,10 +6,12 @@ import useSWR from 'swr'
 import { useState } from 'react'
 import { ticketsUrlEndpoint as cacheKey, deleteTicket, getTickets } from "@/services/swr/tickets-api";
 import { BeatLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
 
 const DeleteBlock = ({ id }: { id: string }) => {
     const [loading, setLoading] = useState(false)
     const { mutate } = useSWR(cacheKey, getTickets)
+    const router = useRouter()
 
     const deleteTicketMutation = async () => {
         try {
@@ -21,6 +23,7 @@ const DeleteBlock = ({ id }: { id: string }) => {
                 duration: 1000,
                 icon: '🎉'
             })
+            router.refresh()
             setLoading(false)
         } catch (error) {
             setLoading(false)
