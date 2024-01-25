@@ -68,8 +68,8 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
       setLoading(true)
       await updateTicket(ticket._id, updatedTicket)
       mutate()
-      router.push('/')
       setLoading(false)
+      // router.refresh()
     } catch (error) {
       setLoading(false)
       toast.error("Failed to update ticket", {
@@ -90,6 +90,9 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
 
     if (EDITMODE) {
       updateTicketMutation({ formData })
+      setTimeout(() => {
+        router.push('/')
+      }, 1000)
     } else {
       addTicketMutation({ formData })
     }

@@ -57,22 +57,22 @@ const Home = async ({ searchParams }: { searchParams: { q: string } }) => {
   //   content = <p>{error.message}</p>
   } else {
   content = (
+    <main className="mb-6 px-4 md:px-20">
+    <div className='flex items-center justify-between text-right mb-6'>
+      <CreateTicket />
+      <SearchTicket />
+    </div>
     <FilteredTickets
       data={data}
       uniqueCategories={uniqueCategories}
     />
+  </main>
   )
   }
 
   return (
     <>
-      <main className="mb-6 px-4 md:px-20">
-        <div className='flex items-center justify-between text-right mb-6'>
-          <CreateTicket />
-          <SearchTicket />
-        </div>
-        {content}
-      </main>
+     {content}
     </>
   );
 }

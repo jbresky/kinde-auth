@@ -1,5 +1,4 @@
 import Ticket from "@/models/Ticket";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request, { params }: any) {
@@ -18,8 +17,6 @@ export async function PUT(req: Request, { params }: any) {
         await Ticket.findByIdAndUpdate(id, {
             ...ticketData
         })
-
-        revalidatePath('/')
 
         return NextResponse.json({ message: "Ticket updated" }, { status: 200 })
     } catch (error) {
