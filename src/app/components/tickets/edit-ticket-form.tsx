@@ -108,11 +108,11 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
   return (
     <>
       <Toaster toastOptions={{ position: 'bottom-center' }} />
-      <div className="my-5">
+      <div className="">
         <form
           onSubmit={handleSubmit}
           method="post"
-          className="m-auto flex flex-col gap-3 w-5/6 xl:w-1/2"
+          className="m-auto flex flex-col gap-2 w-5/6 xl:w-1/2"
         >
           <h3 className="text-2xl font-semibold">{EDITMODE ? 'Update Ticket' : 'Create New Ticket'}</h3>
           <label htmlFor={titleId}>Title</label>
@@ -200,13 +200,13 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
             onChange={handleChange}
           />
           <label htmlFor={statusId}>Status</label>
-          <select className="text-gray-700 text-sm" id={statusId} name="status" value={formData.status} onChange={handleChange}>
+          <select className="text-gray-700 text-sm mb-3" id={statusId} name="status" value={formData.status} onChange={handleChange}>
             <option className="text-gray-500 text-sm" value="not started">Not Started</option>
             <option className="text-gray-500 text-sm" value="started">Started</option>
             <option className="text-gray-500 text-sm" value="done">Done</option>
           </select>
           <button
-            className="w-full border-2 px-4 py-2 rounded-lg hover:shadow-md transition duration-200"
+            className="w-full border-2 px-4 py-2 mt-2 rounded-lg hover:shadow-md transition duration-200"
           >
             {loading ? <BeatLoader /> : 'Create Ticket'}
           </button>
