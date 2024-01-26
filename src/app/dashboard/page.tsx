@@ -12,11 +12,6 @@ export default function DashboardPage() {
   const { data, isLoading } = useSWR(cacheKey, getTickets)
   // getTicketsByUser instead
 
-  const uniqueCategories = [
-    //@ts-ignore
-    ...new Set(data && data.tickets?.map(({ category }: { category: string }) => category))
-  ]
-
   let content
 
   if (isLoading) {
@@ -30,7 +25,7 @@ export default function DashboardPage() {
         <Dashboard />
         <FilteredTickets
           data={data}
-          uniqueCategories={uniqueCategories} />
+          />
       </main>
     )
   }
