@@ -8,7 +8,7 @@ const ticketsApi = axios.create({
 
 export const ticketsUrlEndpoint = '/api/Tickets'
 
-export const getTickets = async (): Promise<Ticket[]> => {
+export const getTickets = async (): Promise<any> => {
     // await delay()
     const response = await ticketsApi.get(ticketsUrlEndpoint)
     return response.data

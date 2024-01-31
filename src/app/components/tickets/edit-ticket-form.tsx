@@ -69,7 +69,6 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
       await updateTicket(ticket._id, updatedTicket)
       mutate()
       setLoading(false)
-      // router.refresh()
     } catch (error) {
       setLoading(false)
       toast.error("Failed to update ticket", {
@@ -90,14 +89,14 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
 
     if (EDITMODE) {
       updateTicketMutation({ formData })
-      setTimeout(() => {
+      // setTimeout(() => {
         router.push('/')
-      }, 1000)
+      // }, 1000)
     } else {
       addTicketMutation({ formData })
     }
   }
-
+  
   const categories = [
     "Hardware Problem",
     "Software Problem",
@@ -200,7 +199,7 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
             onChange={handleChange}
           />
           <label htmlFor={statusId}>Status</label>
-          <select className="text-gray-700 text-sm mb-3" id={statusId} name="status" value={formData.status} onChange={handleChange}>
+          <select className="text-gray-700 text-sm mb-3 p-2 rounded-md bg-[#f5f5f5]" id={statusId} name="status" value={formData.status} onChange={handleChange}>
             <option className="text-gray-500 text-sm" value="not started">Not Started</option>
             <option className="text-gray-500 text-sm" value="started">Started</option>
             <option className="text-gray-500 text-sm" value="done">Done</option>
