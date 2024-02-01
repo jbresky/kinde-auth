@@ -5,18 +5,10 @@ import { getTickets, ticketsUrlEndpoint as cacheKey } from "@/services/swr/ticke
 import { BeatLoader } from "react-spinners";
 import FilteredTickets from "../components/tickets/filtered-tickets";
 import Dashboard from '../components/dashboard/dashboard';
-import SearchTicket from '../components/searchTicket';
-import { getByTitle } from '@/services/fetch/getByTitle';
 
-export default async function DashboardPage({ searchParams }: { searchParams: { q: string } }) {
+export default async function DashboardPage() {
 
   const { data, isLoading } = useSWR(cacheKey, getTickets)
-
-  let queryTicket
-  if (searchParams.q) {
-    queryTicket = await getByTitle(searchParams.q)
-  }
-  // getTicketsByUser instead
 
   let content
 
@@ -25,11 +17,8 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
   } else {
     content = (
       <main className="mb-6 px-2 md:px-20">
-        <div className='text-right mb-6'>
-          <SearchTicket />
-        </div>
         <Dashboard />
-        <FilteredTickets data={searchParams.q ? queryTicket : data}
+        <FilteredTickets data={data}
           />
       </main>
     )
