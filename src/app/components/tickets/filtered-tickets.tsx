@@ -13,7 +13,7 @@ const FilteredTickets = ({ data }: { data: any }) => {
         <section className="mt-8">
             {
                 data && data.tickets && uniqueCategories?.map((uniqueCategory, categoryIndex: number) => (
-                    <div className="mb-4">
+                    <div className="mb-4" key={categoryIndex}>
                         <h2 className="text-slate-500 font-sans font-medium">{uniqueCategory}</h2>
                                 <div className="lg:grid grid-cols-2 2xl:grid-cols-4 gap-2 flex flex-col max-lg:gap-4">
                                     {
