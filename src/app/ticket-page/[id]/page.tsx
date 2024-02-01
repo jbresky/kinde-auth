@@ -1,6 +1,5 @@
 import EditTicketForm from "@/app/components/tickets/edit-ticket-form"
-
-const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
+import { BASE_URL } from "@/constant/url"
 
 const getTicketById = async (id: string) => {
     try {
