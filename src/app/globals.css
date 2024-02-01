@@ -1,97 +1,76 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-:root {
-  --g-color-black: #15202b;
-  --g-color-white: #fff;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-  --g-color-grey-100: #f1f2f4;
-  --g-color-grey-600: #5d636f;
-  --g-color-grey-700: #434851;
-  --g-color-grey-900: #121417;
-
-  --g-box-shadow: 0px 6px 12px rgba(18, 20, 23, 0.06),
-    0px 15px 24px rgba(18, 20, 23, 0.07), 0px -4px 12px rgba(18, 20, 23, 0.05);
-
-  --g-font-family: "Helvetica";
-
-  --g-font-size-x-small: 0.75rem; /* 12px */
-  --g-font-size-small: 0.875rem; /* 14px */
-  --g-font-size-base: 1rem; /* 16px */
-  --g-font-size-large: 1.25rem; /* 20x */
-  --g-font-size-x-large: 1.5rem; /* 24px */
-  --g-font-size-2x-large: 2rem; /* 32px */
-  --g-font-size-3x-large: 2.5rem; /* 40px */
-  --g-font-size-4x-large: 4rem; /* 64px */
-
-  --g-font-weight-base: 400;
-  --g-font-weight-semi-bold: 500;
-  --g-font-weight-bold: 600;
-  --g-font-weight-black: 700;
-
-  --g-border-radius-small: 0.5rem;
-  --g-border-radius-base: 1rem;
-  --g-border-radius-large: 1.5rem;
-
-  --g-spacing-small: 0.5rem; /* 8px */
-  --g-spacing-base: 1rem; /* 16px */
-  --g-spacing-large: 1.5rem; /* 24px */
-  --g-spacing-x-large: 2rem; /* 32px */
-  --g-spacing-2x-large: 2.5rem; /* 40px */
-  --g-spacing-3x-large: 3rem; /* 48px */
-  --g-spacing-6x-large: 6rem; /* 96px */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
 }
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: var(--g-font-family);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-label {
-  font-weight: bold;
-}
-
-.container {
-  margin: auto;
-}
-
-.hero {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
-.card {
-  background: rgb(224, 218, 218);
-  border-radius: var(--g-border-radius-large);
-  box-shadow: var(--g-box-shadow);
-  color: var(--g-color-white);
-}
-
-.avatar {
-  align-items: center;
-  background-color: var(--g-color-grey-100);
-  border-radius: var(--g-border-radius-large);
-  display: flex;
-  height: var(--g-spacing-3x-large);
-  justify-content: center;
-  text-align: center;
-  width: var(--g-spacing-3x-large);
-}
-
+ 
+/* @layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
