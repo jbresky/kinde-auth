@@ -8,24 +8,24 @@ import FilteredTickets from "./components/tickets/filtered-tickets";
 import SearchTicket from "./components/searchTicket";
 // import { BASE_URL } from "@/constant/url";
 
-const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
-export const getByTitle = async (title: Ticket["title"]) => {
-  const tickets = await fetch(`${BASE_URL}/api/Tickets/search-by-title/${title}`)
+// const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://kinde-auth-sand.vercel.app' : 'http://localhost:3000'
+// export const getByTitle = async (title: Ticket["title"]) => {
+//   const tickets = await fetch(`${BASE_URL}/api/Tickets/search-by-title/${title}`)
 
-  if (!tickets.ok) throw new Error('error')
+//   if (!tickets.ok) throw new Error('error')
 
-  return tickets.json()
-}
+//   return tickets.json()
+// }
 
-const Home = async ({ searchParams }: { searchParams: { q: string } }) => {
+const Home = () => {
 
   const { data, isLoading, error } = useSWR(cacheKey, getTickets)
 
   let content
-  let queryTicket
-  if (searchParams.q) {
-    queryTicket = await getByTitle(searchParams.q)
-  }
+  // let queryTicket
+  // if (searchParams.q) {
+  //   queryTicket = await getByTitle(searchParams.q)
+  // }
 
   if (isLoading) {
     content = <div className="p-24"> <BeatLoader color="gray" /> </div>
@@ -41,7 +41,7 @@ const Home = async ({ searchParams }: { searchParams: { q: string } }) => {
           <SearchTicket />
         </div>
         <FilteredTickets
-          data={searchParams.q ? queryTicket : data }
+          data={data}
         />
       </main>
     )
@@ -50,9 +50,10 @@ const Home = async ({ searchParams }: { searchParams: { q: string } }) => {
   return (
     <>
       {
-        searchParams.q && queryTicket.length < 1
-          ? <p className="px-14">No tickets found 😓</p>
-          : content
+        // searchParams.q && queryTicket.length < 1
+        //   ? <p className="px-14">No tickets found 😓</p>
+        //   :
+          content
       }
     </>
   );
