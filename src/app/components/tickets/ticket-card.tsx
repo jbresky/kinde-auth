@@ -6,7 +6,7 @@ import Priority from "./priority";
 import Progress from "./progress";
 import Status from "./status";
 
-const TicketCard = ({ ticket }: { ticket: any }) => {
+const TicketCard = ({ ticket }: { ticket: Ticket }) => {
 
     function formatTimestamp(timestamp: any) {
 
@@ -38,7 +38,6 @@ const TicketCard = ({ ticket }: { ticket: any }) => {
                 <hr className="h-px border-0 bg-gray-300 mb-2 "></hr>
                     <p className="whitespace-pre-wrap">{ticket.description}</p>
 
-                    {/* <div className="flex-grow"></div> */}
                     <div className="flex mt-2">
                         <div className="flex flex-col">
                             <p className="text-xs my-1 tracking-wide">{createdAt}</p>
@@ -49,12 +48,7 @@ const TicketCard = ({ ticket }: { ticket: any }) => {
                         </div>
                     </div>
                     <div className="pt-4 flex justify-between">
-                        
-                        {/* kinde data */}
-                        <p className="whitespace-pre-wrap">Employee: employee name</p>
-
-                        {/* ticket id */}
-                        <p className="whitespace-pre-wrap">#{ticket._id.slice(0, 7)}</p>
+                        <p className="text-sm">#{ticket._id.slice(0, 7)}</p>
                     </div>
             </Link>
         </div>
