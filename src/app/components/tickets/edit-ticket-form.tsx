@@ -10,7 +10,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import useSWR from 'swr'
 import { BeatLoader } from "react-spinners";
 
-const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
+const EditTicketForm = ({ ticket, email }: { ticket: Ticket, email: string }) => {
   const [loading, setLoading] = useState(false)
 
   const { mutate } = useSWR(cacheKey, getTickets)
@@ -36,6 +36,7 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
     progress: 0,
     status: "not started",
     category: "Hardware Problem",
+    createdBy: email
   }
 
   if (EDITMODE) {
@@ -53,6 +54,7 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
     try {
       setLoading(true)
       await addTicket(newTicket)
+      console.log(newTicket);
       mutate()
       router.push('/')
       setLoading(false)
@@ -204,6 +206,7 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
             <option className="text-gray-500 text-sm" value="started">Started</option>
             <option className="text-gray-500 text-sm" value="done">Done</option>
           </select>
+          <input className="hidden" onChange={handleChange} name="createdBy" value={formData.createdBy}/>
           <button
             className="w-full border-2 px-4 py-2 mt-2 rounded-lg hover:shadow-md transition duration-200"
           >
