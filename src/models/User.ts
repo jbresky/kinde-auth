@@ -5,10 +5,10 @@ mongoose.Promise = global.Promise
 
 const userSchema = new Schema(
     {
-        id: String,
         firstName: String,
         lastName: String,
-        email: String
+        email: String,
+        tickets: [String]
     },
     {
         timestamps: true,
