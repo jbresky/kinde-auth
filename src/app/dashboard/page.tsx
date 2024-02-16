@@ -1,32 +1,24 @@
-'use client'
+import { Button } from "@/components/ui/button";
+import { BASE_URL } from "@/constant/url";
+import getLoggedInUser from "@/lib/get-user";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
-import useSWR from 'swr'
-import { getTickets, ticketsUrlEndpoint as cacheKey } from "@/services/swr/tickets-api";
-import { BeatLoader } from "react-spinners";
-import FilteredTickets from "../components/tickets/filtered-tickets";
-import Dashboard from '../components/dashboard/dashboard';
+const PreDashboard = async () => {
+    const user = await getLoggedInUser()
+    if (!user) {
+        redirect(`${BASE_URL}/register`)
+    }
 
-export default async function DashboardPage() {
-
-  const { data, isLoading } = useSWR(cacheKey, getTickets)
-
-  let content
-
-  if (isLoading) {
-    content = <div className="p-24"> <BeatLoader color="gray" /> </div>
-  } else {
-    content = (
-      <main className="mb-6 px-2 md:px-20">
-        <Dashboard />
-        <FilteredTickets data={data}
-          />
-      </main>
+    return (
+        <main className="flex justify-center mt-24">
+            <Button className="p-6">
+                <Link href={`/dashboard/${user.email}`}>
+                    Go to my tickets
+                </Link>
+            </Button>
+        </main>
     )
-  }
-
-  return (
-    <>
-      {content}
-    </>
-  );
 }
+
+export default PreDashboard;
