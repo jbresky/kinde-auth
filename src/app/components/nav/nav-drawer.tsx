@@ -11,7 +11,7 @@ import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
-const NavDrawer = ({ user }: { user: any }) => {
+const NavDrawer = ({ userPhoto }: { userPhoto: string }) => {
     return (
         <Drawer>
             <DrawerTrigger>
@@ -19,7 +19,7 @@ const NavDrawer = ({ user }: { user: any }) => {
                     className="rounded-full"
                     width={40}
                     height={40}
-                    src={user.picture}
+                    src={userPhoto}
                     alt="user profile avatar"
                     referrerPolicy="no-referrer"
                 />

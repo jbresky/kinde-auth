@@ -1,7 +1,6 @@
 'use client'
 
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
-import Image from "next/image";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -19,7 +18,7 @@ const AuthNav = ({ user }: { user: any }) => {
                 {user && path !== '/dashboard' && <Link className="rounded-lg hover:bg-[#f5f5f5] font-medium transition duration-200 py-3 px-5 hidden sm:block" href='/dashboard'>Dashboard</Link>}
                 <LogoutLink className="rounded-lg hover:bg-[#f5f5f5] font-medium transition duration-200 py-3 px-5 mr-3 hidden sm:block">Log out</LogoutLink>
                 {user?.picture ? (
-                    <NavDrawer user={user} />
+                    <NavDrawer userPhoto={user.picture} />
                 ) : (
                     <div className="avatar">
                         {user?.given_name?.[0]}
