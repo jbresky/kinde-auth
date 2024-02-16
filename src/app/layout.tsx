@@ -1,7 +1,7 @@
 import "./globals.css";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import WelcomeNav from "./components/nav/welcome-nav";
 import AuthNav from "./components/nav/auth-nav";
+import getLoggedInUser from "@/lib/get-user";
 
 export const metadata = {
   title: "Kinde Auth",
@@ -14,16 +14,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
 
-  const { isAuthenticated, getUser } = getKindeServerSession();
-
-  const user = await getUser();
+  const user = await getLoggedInUser();
   return (
     <html lang="en">
       <body>
         <header>
           <nav className="py-6 px-4 md:px-20">
             <div>
-              {!(await isAuthenticated()) ? (
+              {!user ? (
                 <WelcomeNav />
               ) : (
                 <AuthNav user={user} />

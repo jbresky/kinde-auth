@@ -1,26 +1,19 @@
 import EditTicketForm from "@/app/components/tickets/edit-ticket-form"
-import { BASE_URL } from "@/constant/url"
-
-const getTicketById = async (id: string) => {
-    try {
-        const res = await fetch(`${BASE_URL}/api/Tickets/${id}`, {
-            cache: 'no-store'
-        })
-
-        if(!res.ok) throw new Error("Failed to fetch ticket")
-
-        return res.json()
-
-    } catch (error) {
-        console.log(error);
-    }
-}
+import getLoggedInUser from "@/lib/get-user"
+import { getTicketById } from "@/lib/tickets"
+import { redirect } from "next/navigation"
 
 let updateTicketData: any = {}
 const TicketPage = async ({ params }: any) => {
+    const user = await getLoggedInUser()
+
+    if (!user) redirect('/register')
+
+    const name = user.given_name + ' ' + user.family_name
+
     const EDITMODE = params.id === "new" ? false : true
 
-    if(EDITMODE) {
+    if (EDITMODE) {
         updateTicketData = await getTicketById(params.id)
         updateTicketData = updateTicketData.foundTicket
     } else {
@@ -29,7 +22,7 @@ const TicketPage = async ({ params }: any) => {
         }
     }
 
-    return <EditTicketForm ticket={updateTicketData} />
+    return <EditTicketForm name={name} ticket={updateTicketData} />
 }
 
 export default TicketPage;
