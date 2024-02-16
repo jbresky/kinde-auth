@@ -5,6 +5,7 @@ interface Ticket {
     category: string,
     priority: number,
     progress: number,
+    createdBy: string,
     status: string,
     active: boolean,
     createdAt: Date,
