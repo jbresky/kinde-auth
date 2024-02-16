@@ -6,7 +6,7 @@ import Priority from "./priority";
 import Progress from "./progress";
 import Status from "./status";
 
-const TicketCard = ({ ticket }: { ticket: Ticket }) => {
+const TicketCard = ({ ticket, user }: { ticket: Ticket, user: any }) => {
 
     function formatTimestamp(timestamp: any) {
 
@@ -29,9 +29,13 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
         <div className="flex flex-col font-sans border-2 border-gray-300 rounded-xl hover:shadow-md transition duration-200 p-4 mt-2">
             <div className="flex mb-4">
                 <Priority priority={ticket.priority} />
-                <div className="ml-auto cursor-pointer">
-                    <DeleteBlock id={ticket._id} />
-                </div>
+
+                {user.email === ticket.createdBy ? (
+                    <div className="ml-auto cursor-pointer">
+                        <DeleteBlock id={ticket._id} />
+                    </div>
+                ) : null }
+                
             </div>
             <Link href={`/ticket-page/${ticket._id}`} prefetch={false}>
                 <h4 className="mb-1 font-medium">{ticket.title}</h4>
@@ -47,9 +51,9 @@ const TicketCard = ({ ticket }: { ticket: Ticket }) => {
                         <Status status={ticket.status} />
                     </div>
                 </div>
-                <div className="pt-4 flex justify-between">
+                <div className="pt-4 flex justify-between items-center">
                     <p className="text-sm">#{ticket._id.slice(0, 7)}</p>
-                    <p>{ticket.createdBy}</p>
+                    <p>{ticket.createdBy.split("@")[0]}</p>
                 </div>
             </Link>
         </div>

@@ -10,7 +10,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import useSWR from 'swr'
 import { BeatLoader } from "react-spinners";
 
-const EditTicketForm = ({ ticket, email }: { ticket: Ticket, email: string }) => {
+const EditTicketForm = ({ ticket, name }: { ticket: Ticket, name: string }) => {
   const [loading, setLoading] = useState(false)
 
   const { mutate } = useSWR(cacheKey, getTickets)
@@ -36,7 +36,7 @@ const EditTicketForm = ({ ticket, email }: { ticket: Ticket, email: string }) =>
     progress: 0,
     status: "not started",
     category: "Hardware Problem",
-    createdBy: email
+    createdBy: name
   }
 
   if (EDITMODE) {
