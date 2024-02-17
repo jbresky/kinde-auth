@@ -20,9 +20,9 @@ const AuthNav = ({ user }: { user: any }) => {
                 {user?.picture ? (
                     <NavDrawer userPhoto={user.picture} />
                 ) : (
-                    <div className="avatar">
-                        {user?.given_name?.[0]}
-                        {user?.family_name?.[0]}
+                    <div className="bg-[#f5f5f5] w-10 h-10 flex items-center justify-center rounded-full p-2">
+                        <p>{user?.given_name?.[0]}</p>
+                        <p>{user?.family_name?.[0]}</p>
                     </div>
                 )}
             </div>
