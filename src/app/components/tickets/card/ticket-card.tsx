@@ -30,7 +30,7 @@ const TicketCard = ({ ticket, user }: { ticket: Ticket, user: any }) => {
             <div className="flex mb-4">
                 <Priority priority={ticket.priority} />
 
-                {user.email === ticket.createdBy ? (
+                {ticket.createdBy.email === user.email ? (
                     <div className="ml-auto cursor-pointer">
                         <DeleteBlock id={ticket._id} />
                     </div>
@@ -53,7 +53,7 @@ const TicketCard = ({ ticket, user }: { ticket: Ticket, user: any }) => {
                 </div>
                 <div className="pt-4 flex justify-between items-center">
                     <p className="text-sm">#{ticket._id.slice(0, 7)}</p>
-                    <p>{ticket.createdBy.split("@")[0]}</p>
+                    <p>{ticket.createdBy.name}</p>
                 </div>
             </Link>
         </div>

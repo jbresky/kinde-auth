@@ -10,7 +10,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import useSWR from 'swr'
 import { BeatLoader } from "react-spinners";
 
-const EditTicketForm = ({ ticket, name }: { ticket: Ticket, name: string }) => {
+const EditTicketForm = ({ ticket, email, name }: { ticket: Ticket, email: string, name: string }) => {
   const [loading, setLoading] = useState(false)
 
   const { mutate } = useSWR(cacheKey, getTickets)
@@ -36,7 +36,10 @@ const EditTicketForm = ({ ticket, name }: { ticket: Ticket, name: string }) => {
     progress: 0,
     status: "not started",
     category: "Hardware Problem",
-    createdBy: name
+    createdBy: {
+      email,
+      name
+    }
   }
 
   if (EDITMODE) {
@@ -138,7 +141,7 @@ const EditTicketForm = ({ ticket, name }: { ticket: Ticket, name: string }) => {
             value={formData.description}
           />
 
-          <div className="flex gap-5 justify-between py-2 items-center">
+          <div className="flex max-sm:flex-col gap-5 justify-between py-2 sm:items-center">
             <label htmlFor={categoryId}>Category</label>
             <select className="text-sm text-gray-800 p-2 rounded-md bg-[#f5f5f5]" id={categoryId} name="category" value={formData.category} onChange={handleChange}>
               {categories.map((category, index) => (
@@ -149,7 +152,7 @@ const EditTicketForm = ({ ticket, name }: { ticket: Ticket, name: string }) => {
             </select>
 
             <label>Priority</label>
-            <div className="flex gap-5">
+            <div className="flex gap-10">
               <input
                 id={priority1}
                 name="priority"
@@ -162,7 +165,7 @@ const EditTicketForm = ({ ticket, name }: { ticket: Ticket, name: string }) => {
                 <FcLowPriority />
               </label>
             </div>
-            <div className="flex gap-5">
+            <div className="flex gap-10">
               <input
                 id={priority2}
                 name="priority"
@@ -175,7 +178,7 @@ const EditTicketForm = ({ ticket, name }: { ticket: Ticket, name: string }) => {
                 <FcMediumPriority />
               </label>
             </div>
-            <div className="flex gap-5">
+            <div className="flex gap-10">
               <input
                 id={priority3}
                 name="priority"

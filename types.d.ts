@@ -1,3 +1,7 @@
+interface User {
+    name: string,
+    email: string
+}
 interface Ticket {
     _id: string
     title: string,
@@ -5,7 +9,7 @@ interface Ticket {
     category: string,
     priority: number,
     progress: number,
-    createdBy: string,
+    createdBy: User,
     status: string,
     active: boolean,
     createdAt: Date,

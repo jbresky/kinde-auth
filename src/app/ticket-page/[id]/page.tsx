@@ -9,20 +9,19 @@ const TicketPage = async ({ params }: any) => {
 
     if (!user) redirect('/register')
 
-    const name = user.given_name + ' ' + user.family_name
-
+    const username = user.given_name + ' ' + user.family_name
     const EDITMODE = params.id === "new" ? false : true
 
     if (EDITMODE) {
         updateTicketData = await getTicketById(params.id)
-        updateTicketData = updateTicketData.foundTicket
+        updateTicketData = updateTicketData.ticketWithUserData
     } else {
         updateTicketData = {
             _id: "new"
         }
     }
 
-    return <EditTicketForm name={name} ticket={updateTicketData} />
+    return <EditTicketForm email={user.email} name={username} ticket={updateTicketData} />
 }
 
 export default TicketPage;
