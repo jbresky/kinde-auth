@@ -8,7 +8,6 @@ import FilteredTickets from './tickets/filtered-tickets';
 
 const HomeClient = ({ user }: { user: any }) => {
   const { data, isLoading, error } = useSWR(cacheKey, getTickets)
-  console.log(data)
 
   let content
 
